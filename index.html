@@ -1,123 +1,99 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ذكرى سنتنا الحلوة 💖</title>
-<style>
-    body {
-        margin: 0; font-family: 'Arial', sans-serif;
-        background: #fff0f5; color: #333;
-        display: flex; align-items: center; justify-content: center;
-        height: 100vh; overflow: hidden; text-align: center;
-    }
-    .container {
-        background: white; padding: 25px; border-radius: 25px;
-        box-shadow: 0 15px 35px rgba(255, 77, 136, 0.2);
-        width: 85%; max-width: 400px; position: relative; z-index: 10;
-        border: 2px solid #ffb6c1;
-    }
-    /* تنسيق الصورة */
-    .our-photo {
-        width: 100%; max-height: 200px; object-fit: cover;
-        border-radius: 15px; margin-bottom: 15px;
-        border: 3px solid #ff4d88;
-    }
-    h2 { color: #d63384; font-size: 20px; margin: 10px 0; }
-    #counter, #finalCounter {
-        font-size: 16px; color: #ff4d88; font-weight: bold;
-        background: #fff9fb; padding: 10px; border-radius: 15px;
-        border: 1px dashed #ff4d88; margin: 10px 0;
-    }
-    button {
-        background: #ff4d88; border: none; padding: 12px 25px;
-        border-radius: 50px; color: white; font-size: 16px;
-        cursor: pointer; box-shadow: 0 4px 15px rgba(255, 77, 136, 0.3);
-    }
-    #noBtn { background: #999; position: relative; }
-    .hidden { display: none; }
-    .heart-fall { position: fixed; top: -10%; font-size: 24px; pointer-events: none; z-index: 5; animation: fall linear forwards; }
-    @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أجمل سنة مع أرنوبتي 💖</title>
+    <style>
+        body { margin: 0; font-family: 'Arial', sans-serif; background: #fff0f5; text-align: center; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .container { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(255, 77, 136, 0.2); width: 85%; max-width: 380px; z-index: 10; border: 2px solid #ffb6c1; }
+        .our-photo { width: 100%; border-radius: 15px; margin-bottom: 15px; border: 3px solid #ff4d88; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { color: #d63384; font-size: 22px; margin-bottom: 10px; }
+        #counter, #finalCounter { font-size: 17px; color: #ff4d88; font-weight: bold; margin: 15px 0; background: #fff9fb; padding: 12px; border-radius: 15px; border: 1px dashed #ff4d88; line-height: 1.6; }
+        button { background: #ff4d88; border: none; padding: 12px 25px; border-radius: 50px; color: white; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 77, 136, 0.3); transition: 0.3s; }
+        button:hover { transform: scale(1.05); }
+        .hidden { display: none; }
+        #noBtn { background: #999; position: relative; z-index: 100; }
+        .heart { position: fixed; top: -10%; font-size: 24px; pointer-events: none; z-index: 5; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+    </style>
 </head>
 <body>
 
-<audio id="bgMusic" loop>
-    <source src="رابط_ملف_الموسيقى_هنا.mp3" type="audio/mpeg">
-</audio>
-
-<div class="container" id="start">
-    <img src="https://ibb.co/rftghC90" class="our-photo" alt="ذكرى">
+<div class="container" id="page1">
+    <img src="https://i.ibb.co/C5Xz8Yp/rftghC90.jpg" class="our-photo" alt="ذكرى غالية">
     <h2>أرنوبتي.. قربنا نكمل سنة! 🎉</h2>
-    <div id="counter">جاري حساب اللحظات...</div>
-    <button onclick="startExperience()">ابدأ المفاجأة 😍</button>
+    <div id="counter">جاري الحساب... ⏳</div>
+    <button onclick="showNext('page2')">ابدأ المفاجأة 😍</button>
 </div>
 
-<div class="container hidden" id="q1">
+<div class="container hidden" id="page2">
     <h2>لسه تحبيني مثل أول يوم؟ 😏</h2>
     <div style="display: flex; justify-content: center; gap: 10px;">
-        <button onclick="go('q2')">أكيد!</button>
-        <button id="noBtn" onmouseover="move()" ontouchstart="move(event)">لا</button>
+        <button onclick="showNext('page3')">أكيد بمليون مرة!</button>
+        <button id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo(event)">لا طبعاً</button>
     </div>
 </div>
 
-<div class="container hidden" id="final">
+<div class="container hidden" id="page3">
     <h2>يا أجمل أرنوبة بالعالم 🎉</h2>
+    <p>باقي القليل ونقفل سنة كاملة.. صرنا مع بعض:</p>
     <div id="finalCounter"></div>
-    <button id="secretBtn" onclick="showSecret()">إهداء بسيط لك 🎁</button>
-    <div id="secret" class="hidden" style="font-size: 24px; color: #ff4d88; font-weight: bold; margin-top: 15px;">
+    <button id="giftBtn" onclick="startHearts()">اضغطي هنا 🎁</button>
+    <div id="secret" class="hidden" style="font-size: 26px; color: #ff4d88; font-weight: bold; margin-top: 20px;">
         أحبك.. وبقوة يا أرنوبتي 🤍✨
     </div>
 </div>
 
 <script>
-const startTime = new Date("April 27, 2025 00:00:00").getTime();
+    // التاريخ: 27 أبريل 2025
+    const startDate = new Date("April 27, 2025 00:00:00").getTime();
 
-function startExperience() {
-    // تشغيل الموسيقى عند أول ضغطة
-    document.getElementById('bgMusic').play();
-    go('q1');
-}
+    function updateTimer() {
+        const now = new Date().getTime();
+        const diff = now - startDate;
 
-function updateTimer() {
-    const now = new Date().getTime();
-    const diff = now - startTime;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    const text = `${days} يوم و ${hours} ساعة<br>${minutes} دقيقة و ${seconds} ثانية`;
-    document.getElementById("counter").innerHTML = text;
-    if(document.getElementById("finalCounter")) document.getElementById("finalCounter").innerHTML = text;
-}
-setInterval(updateTimer, 1000);
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-function go(id){
-    document.querySelectorAll(".container").forEach(c => c.classList.add("hidden"));
-    document.getElementById(id).classList.remove("hidden");
-}
+        const txt = `${d} يوم و ${h} ساعة<br>${m} دقيقة و ${s} ثانية`;
+        
+        document.getElementById("counter").innerHTML = txt;
+        if(document.getElementById("finalCounter")) {
+            document.getElementById("finalCounter").innerHTML = txt;
+        }
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
 
-function move(e){
-    if(e) e.preventDefault();
-    const btn = document.getElementById("noBtn");
-    btn.style.position = "fixed";
-    btn.style.left = Math.random() * (window.innerWidth - 80) + "px";
-    btn.style.top = Math.random() * (window.innerHeight - 40) + "px";
-}
+    function showNext(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+    }
 
-function showSecret(){
-    document.getElementById("secretBtn").classList.add("hidden");
-    document.getElementById("secret").classList.remove("hidden");
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart-fall");
-        heart.innerHTML = ["❤️", "💖", "🌸", "🐰"][Math.floor(Math.random() * 4)];
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = "3s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 3000);
-    }, 300);
-}
+    function moveNo(e) {
+        if(e) e.preventDefault();
+        const b = document.getElementById("noBtn");
+        b.style.position = "fixed";
+        b.style.left = Math.random() * (window.innerWidth - 100) + "px";
+        b.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    }
+
+    function startHearts() {
+        document.getElementById("giftBtn").classList.add("hidden");
+        document.getElementById("secret").classList.remove("hidden");
+        setInterval(() => {
+            const h = document.createElement("div");
+            h.className = "heart";
+            h.innerHTML = ["❤️", "💖", "🌸", "🐰", "✨"][Math.floor(Math.random() * 5)];
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 3000);
+        }, 200);
+    }
 </script>
 </body>
 </html>
