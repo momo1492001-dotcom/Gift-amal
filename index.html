@@ -9,35 +9,29 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: radial-gradient(circle at top, #1f1f1f, #0f0f0f);
+    background: #111;
     color: white;
     text-align: center;
-    overflow: hidden;
 }
 
 .container {
-    padding: 20px;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    padding: 30px 15px;
 }
 
 img {
-    width: 220px;
-    border-radius: 20px;
+    width: 200px;
+    border-radius: 15px;
     margin-top: 15px;
-    box-shadow: 0 0 20px rgba(255,100,150,0.4);
 }
 
 button {
-    background: linear-gradient(45deg,#ff4d88,#ff80aa);
+    background: #ff4d88;
     border: none;
-    padding: 14px 28px;
-    border-radius: 30px;
+    padding: 12px 25px;
+    border-radius: 25px;
     color: white;
     font-size: 16px;
     margin: 10px;
-    cursor: pointer;
 }
 
 .hidden { display: none; }
@@ -58,65 +52,57 @@ button {
 
 <body>
 
-<!-- موسيقى -->
 <audio autoplay loop>
 <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
 </audio>
 
 <div class="container" id="start">
-    <h1>أرنوبتي... قربنا سنة 💌</h1>
+    <h2>أرنوبتي... قربنا سنة 💌</h2>
     <button onclick="go('q1')">ابدأ</button>
 </div>
 
 <div class="container hidden" id="q1">
-    <h1>لسه تحبيني؟ 😏</h1>
+    <h2>لسه تحبيني؟ 😏</h2>
     <button onclick="go('q2')">أكيد</button>
     <button id="noBtn">لا</button>
 </div>
 
 <div class="container hidden" id="q2">
-    <h1>ولسه تشتاقي لي؟ 🥺</h1>
+    <h2>ولسه تشتاقي لي؟ 🥺</h2>
     <button onclick="go('final')">دايم</button>
     <button onclick="go('final')">مره</button>
 </div>
 
 <div class="container hidden" id="final">
-    <h1>قربنا سنة يا أرنوبتي 🎉💖</h1>
+    <h2>قربنا سنة يا أرنوبتي 🎉💖</h2>
 
-    <!-- حط صورتكم هنا -->
     <img src="https://ibb.co/rftghC90">
 
-    <!-- عداد -->
     <h3 id="time"></h3>
 
     <p>
-    يا أرنوبتي...
+    يا أرنوبتي...<br><br>
 
-    قربنا نكمل سنة مع بعض 🤍  
-    ومن يوم 27/4/2025 وإنتي ثابتة في حياتي بشكل ما أتخيلته.
+    قربنا نكمل سنة مع بعض 🤍<br>
+    ومن يوم 27/4/2025 وإنتي ثابتة في حياتي بشكل ما أتخيلته.<br><br>
 
-    مو مجرد أيام عدت،  
-    كل يوم معك كان له معنى مختلف.
+    مو مجرد أيام عدت، كل يوم معك كان له معنى مختلف.<br><br>
 
-    ضحكنا، قربنا، مرّينا بلحظات كثير…  
-    وكلها خلتني أتأكد أكثر إنك الشخص اللي أبيه.
+    ضحكنا، قربنا، مرّينا بلحظات كثير…<br>
+    وكلها خلتني أتأكد أكثر إنك الشخص اللي أبيه.<br><br>
 
-    أنا مو بس أحبك،  
-    أنا مرتاح لك، ومتمسك فيك، وأبي أكمل معك اللي جاي كله.
+    أنا مو بس أحبك، أنا مرتاح لك، ومتمسك فيك.<br><br>
 
-    وقرب السنة ذي؟  
-    صدق… أفضل شيء صار لي 💖
+    وقرب السنة ذي؟<br>
+    أفضل شيء صار لي 💖
     </p>
 
     <button onclick="showSecret()">اضغطي هنا 😳</button>
 
     <p id="secret" class="hidden">
-    أنا ما أشوفها مجرد سنة…  
-    أنا أشوفها بداية لشيء أطول، وأقوى، وأحلى معك.
-
-    وأبي كل سنة الجاية تكون معي… نفس الآن، أو أكثر 💗
+    أنا ما أشوفها مجرد سنة…<br>
+    أنا أشوفها بداية لشيء أطول وأحلى معك 💗
     </p>
-
 </div>
 
 <script>
@@ -131,8 +117,8 @@ function go(id){
 
 // زر لا يهرب
 let noBtn = document.getElementById("noBtn");
-noBtn.addEventListener("mouseover", move);
 noBtn.addEventListener("touchstart", move);
+noBtn.addEventListener("mouseover", move);
 
 function move(){
     noBtn.style.position="absolute";
@@ -140,7 +126,7 @@ function move(){
     noBtn.style.top=Math.random()*80+"%";
 }
 
-// القلوب
+// قلوب
 function hearts(){
     setInterval(()=>{
         let h=document.createElement("div");
@@ -152,20 +138,19 @@ function hearts(){
     },200);
 }
 
-// عداد الأيام
+// عداد
 function startTimer(){
     let startDate = new Date("2025-04-27");
     setInterval(()=>{
         let now = new Date();
         let diff = now - startDate;
-
         let days = Math.floor(diff / (1000*60*60*24));
         document.getElementById("time").innerHTML =
-        "صار لنا مع بعض: " + days + " يوم 💖";
+        "صار لنا: " + days + " يوم 💖";
     },1000);
 }
 
-// الزر السري
+// سر
 function showSecret(){
     document.getElementById("secret").classList.remove("hidden");
 }
