@@ -18,12 +18,6 @@ body {
     padding: 30px 15px;
 }
 
-img {
-    width: 200px;
-    border-radius: 15px;
-    margin-top: 15px;
-}
-
 button {
     background: #ff4d88;
     border: none;
@@ -35,32 +29,14 @@ button {
 }
 
 .hidden { display: none; }
-
-/* قلوب */
-.heart {
-    position: fixed;
-    bottom: 0;
-    font-size: 18px;
-    animation: float 4s linear infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0); opacity:1; }
-    100% { transform: translateY(-600px); opacity:0; }
-}
 </style>
 </head>
 
 <body>
 
-<!-- موسيقى (تشتغل بعد أول ضغط) -->
-<audio id="music" loop>
-<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
-</audio>
-
 <div class="container" id="start">
     <h2>أرنوبتي... قربنا سنة 💌</h2>
-    <button onclick="start()">ابدأ</button>
+    <button onclick="startPage()">ابدأ</button>
 </div>
 
 <div class="container hidden" id="q1">
@@ -78,55 +54,34 @@ button {
 <div class="container hidden" id="final">
     <h2>قربنا سنة يا أرنوبتي 🎉💖</h2>
 
-    <!-- حط صورتكم هنا -->
-    <img src="https://ibb.co/rftghC90">
-
-    <h3 id="time"></h3>
-
     <p>
     يا أرنوبتي...<br><br>
-
     قربنا نكمل سنة مع بعض 🤍<br>
-    ومن يوم 27/4/2025 وإنتي ثابتة في حياتي بشكل ما أتخيلته.<br><br>
-
-    مو مجرد أيام عدت، كل يوم معك كان له معنى مختلف.<br><br>
-
-    ضحكنا، قربنا، مرّينا بلحظات كثير…<br>
-    وكلها خلتني أتأكد أكثر إنك الشخص اللي أبيه.<br><br>
-
-    أنا مو بس أحبك، أنا مرتاح لك، ومتمسك فيك.<br><br>
-
-    وقرب السنة ذي؟ أفضل شيء صار لي 💖
+    وكل يوم معك كان له معنى مختلف 💖
     </p>
 
     <button onclick="showSecret()">اضغطي هنا 😳</button>
 
     <p id="secret" class="hidden">
-    أنا ما أشوفها مجرد سنة…<br>
-    أنا أشوفها بداية لشيء أطول وأحلى معك 💗
+    أحبك… وبقوة 🤍
     </p>
 </div>
 
 <script>
-// بدء + تشغيل الموسيقى
-function start(){
-    document.getElementById('start').classList.add('hidden');
-    document.getElementById('q1').classList.remove('hidden');
-    document.getElementById('music').play();
+
+// زر البداية
+function startPage(){
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("q1").classList.remove("hidden");
 }
 
-// تنقل بين الصفحات
+// التنقل
 function go(id){
-    document.querySelectorAll('.container').forEach(x=>x.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-
-    if(id === 'final'){
-        hearts();
-        startTimer();
-    }
+    document.querySelectorAll(".container").forEach(c => c.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
 }
 
-// زر "لا" يهرب
+// زر لا يهرب
 let noBtn = document.getElementById("noBtn");
 
 noBtn.addEventListener("touchstart", move);
@@ -137,4 +92,13 @@ function move(){
     noBtn.style.left = Math.random()*80 + "%";
     noBtn.style.top = Math.random()*80 + "%";
 }
-//
+
+// زر سري
+function showSecret(){
+    document.getElementById("secret").classList.remove("hidden");
+}
+
+</script>
+
+</body>
+</html>
