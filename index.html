@@ -3,26 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أجمل سنة مع أرنوبتي 💖</title>
+    <title>الخزنة الملكية 🔐</title>
     <style>
-        body { margin: 0; font-family: 'Arial', sans-serif; background: #fff0f5; text-align: center; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .container { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(255, 77, 136, 0.2); width: 85%; max-width: 380px; z-index: 10; border: 2px solid #ffb6c1; }
-        .our-photo { width: 100%; border-radius: 15px; margin-bottom: 15px; border: 3px solid #ff4d88; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: block; }
-        h2 { color: #d63384; font-size: 22px; margin-bottom: 10px; }
-        #counter, #finalCounter { font-size: 17px; color: #ff4d88; font-weight: bold; margin: 15px 0; background: #fff9fb; padding: 12px; border-radius: 15px; border: 1px dashed #ff4d88; line-height: 1.6; }
-        button { background: #ff4d88; border: none; padding: 12px 25px; border-radius: 50px; color: white; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 77, 136, 0.3); transition: 0.3s; }
-        button:hover { transform: scale(1.05); }
-        .hidden { display: none; }
-        #noBtn { background: #999; position: relative; z-index: 100; }
-        .heart { position: fixed; top: -10%; font-size: 24px; pointer-events: none; z-index: 5; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        :root { --gold: #d4af37; --dark: #1a1a1a; }
+        body { margin: 0; font-family: 'Times New Roman', serif; background: var(--dark); color: white; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        
+        /* شاشة القفل */
+        #lock-screen { text-align: center; transition: 0.8s; }
+        .keypad { display: grid; grid-template-columns: repeat(3, 70px); gap: 15px; margin-top: 20px; justify-content: center; }
+        .key { width: 70px; height: 70px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: 0.3s; color: var(--gold); }
+        .key:active { background: var(--gold); color: var(--dark); }
+        .dots { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .dot { width: 15px; height: 15px; border: 1px solid var(--gold); border-radius: 50%; }
+        .dot.active { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+
+        /* شاشة المحتوى */
+        #content { opacity: 0; transform: scale(0.9); transition: 1.5s; text-align: center; width: 90%; max-width: 500px; position: absolute; pointer-events: none; }
+        .safe-open #lock-screen { opacity: 0; transform: translateY(-100px); pointer-events: none; }
+        .safe-open #content { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+        h1 { color: var(--gold); font-size: 28px; letter-spacing: 2px; }
+        .divider { width: 100px; height: 2px; background: var(--gold); margin: 20px auto; }
+        #counter { font-size: 20px; line-height: 2; color: #eee; background: rgba(212, 175, 55, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.3); }
+        
+        .message { font-size: 18px; font-style: italic; margin-top: 20px; line-height: 1.8; color: #ccc; }
+        .footer-note { margin-top: 30px; color: var(--gold); font-size: 14px; letter-spacing: 5px; opacity: 0.7; }
+
+        /* أنيميشن القلوب الذهبية */
+        .gold-heart { position: fixed; color: var(--gold); pointer-events: none; animation: fly 4s linear forwards; z-index: 100; }
+        @keyframes fly { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
-<audio id="myMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+    <div id="lock-screen">
+        <h2 style="color: var(--gold); font-weight: 100;">أدخلي رمز الخزنة</h2>
+        <p style="font-size: 12px; opacity: 0.6;">(تاريخ يوم لقائنا المميز)</p>
+        <div class="dots" id="dots">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="keypad">
+            <div class="key" onclick="press(1)">1</div><div class="key" onclick="press(2)">2</div><div class="key" onclick="press(3)">3</div>
+            <div class="key" onclick="press(4)">4</div><div class="key" onclick="press(5)">5</div><div class="key" onclick="press(6)">6</div>
+            <div class="key" onclick="press(7)">7</div><div class="key" onclick="press(8)">8</div><div class="key" onclick="press(9)">9</div>
+            <div></div><div class="key" onclick="press(0)">0</div><div></div>
+        </div>
+    </div>
 
-<div class="container" id="page1">
-    <img src="https://i.ibb.co/C5Xz8Yp/rftghC90.jpg" class="our-photo" alt="ذكرى غالية">
+    <div id="content">
+        <h1>لأرنوبتي.. 👑</h1>
+        <div class="divider"></div>
+        <div id="counter">جاري الحساب...</div>
+        <div class="message">
+            مرت سنة.. ولا زلتِ أنتِ الحدث الأجمل في تاريخي.<br>
+            كل يوم معكِ هو انتصار جديد لقلبي.<br>
+            شكراً لأنكِ كنتِ بجانبي طوال هذه الـ 365 يوماً.
+        </div>
+        <div class="divider"></div>
+        <div id="secret-word" style="font-size: 24px; color: var(--gold); font-weight: bold;">أحبكِ.. وبقوة 🤍</div>
+        <div class="footer-note">SINCE 2025</div>
+    </div>
+
+    <script>
+        let input = "";
+        const code = "2704"; // الرمز: يوم 27 شهر 04
+
+        function press(num) {
+            if (input.length < 4) {
+                input += num;
+                updateDots();
+                if (input.length === 4) {
+                    if (input === code) {
+                        unlock();
+                    } else {
+                        setTimeout(reset, 500);
+                    }
+                }
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                if (i < input.length) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function reset() {
+            input = "";
+            updateDots();
+            // اهتزاز بسيط عند الخطأ
+            document.getElementById('lock-screen').style.transform = "translateX(10px)";
+            setTimeout(() => document.getElementById('lock-screen').style.transform = "translateX(-10px)", 50);
+            setTimeout(() => document.getElementById('lock-screen').style.transform = "translateX(0)", 100);
+        }
+
+        function unlock() {
+            document.body.classList.add('safe-open');
+            setInterval(createGoldHeart, 300);
+        }
+
+        // عداد الوقت الفخم
+        const startDate = new Date("April 27, 2025 00:00:00").getTime();
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = now - startDate;
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById("counter").innerHTML = `مضى على وجودكِ في عالمي:<br>${d} يوم، ${h} ساعة، ${m} دقيقة، ${s} ثانية`;
+        }
+        setInterval(updateTimer, 1000);
+
+        function createGoldHeart() {
+            const h = document.createElement("div");
+            h.className = "gold-heart";
+            h.innerHTML = ["✨", "👑", "🤍", "⭐"][Math.floor(Math.random()*4)];
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.top = "100vh";
+            h.style.fontSize = Math.random() * 20 + 20 + "px";
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
