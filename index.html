@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رسالة سرية لأمولي 💖</title>
+    <style>
+        body { background-color: #fff0f3; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .envelope-wrapper { cursor: pointer; transition: 0.3s; position: relative; }
+        .envelope { position: relative; width: 300px; height: 200px; background-color: #ff4d94; border-radius: 0 0 15px 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); z-index: 2; }
+        .envelope::before { content: ""; position: absolute; top: -100px; left: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-bottom: 100px solid #ff4d94; transition: 0.5s; z-index: 4; transform-origin: bottom; }
+        .letter { position: absolute; bottom: 10px; left: 15px; width: 270px; height: 180px; background: white; border-radius: 10px; transition: 0.7s; z-index: 3; padding: 20px; box-sizing: border-box; text-align: center; border: 1px solid #ffb6c1; }
+        .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .letter { transform: translateY(-130px); height: 280px; z-index: 5; box-shadow: 0 -10px 20px rgba(0,0,0,0.1); }
+        h2 { color: #d63384; font-size: 18px; margin: 5px 0; }
+        p { color: #444; font-size: 15px; line-height: 1.6; font-weight: bold; }
+        img { width: 100px; margin-bottom: 10px; border-radius: 10px; }
+        .hint { margin-top: 50px; color: #ff4d94; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="wrapper" onclick="openMe()">
+        <div class="envelope">
+            <div class="letter">
+                <img src="https://media.tenor.com/v8pZ2-OAn78AAAAi/hello-kitty-love.gif">
+                <h2>أغلى امولي في الدنيا ❤️</h2>
+                <p>فتحي عيونك واقرئي زين.. وجودك في حياتي هو أكبر نعمة، وأحبك اليوم وبكرة وللأبد! 🌸✨</p>
+                <div style="font-size: 12px; color: #ff4d94;">- من قلب حبيبك</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hint" id="hintText">اضغطي على الظرف يا روحي 👆</div>
+
+    <script>
+        function openMe() {
+            document.getElementById('wrapper').classList.toggle('open');
+            document.getElementById('hintText').style.opacity = '0';
+            if(document.getElementById('wrapper').classList.contains('open')) {
+                makeHearts();
+            }
+        }
+
+        function makeHearts() {
+            for (let i = 0; i < 35; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = ["❤️", "💖", "🌸", "✨"][Math.floor(Math.random() * 4)];
+                heart.style.position = "fixed";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.top = "100vh";
+                heart.style.fontSize = Math.random() * 20 + 20 + "px";
+                heart.style.animation = `floatUp ${Math.random() * 2 + 3}s linear forwards`;
+                document.body.appendChild(heart);
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</body>
+</html>
