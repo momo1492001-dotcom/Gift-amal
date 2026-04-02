@@ -28,14 +28,11 @@
         z-index: 10;
     }
     h2 { color: #d63384; font-size: 22px; margin-bottom: 15px; }
-    #counter {
-        font-size: 16px;
+    #counter, #finalCounter {
+        font-size: 18px;
         color: #ff4d88;
         font-weight: bold;
         margin: 15px 0;
-        background: #fff9fb;
-        padding: 10px;
-        border-radius: 10px;
         line-height: 1.6;
     }
     button {
@@ -50,9 +47,7 @@
     }
     #noBtn { background: #888; position: relative; z-index: 100; }
     .hidden { display: none; }
-    #secret { font-weight: bold; color: #ff4d88; font-size: 24px; animation: heartBeat 1s infinite; margin-top: 10px; }
-    @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-    .heart-fall { position: fixed; top: -10%; font-size: 20px; pointer-events: none; z-index: 5; animation: fall linear forwards; }
+    .heart-fall { position: fixed; top: -10%; font-size: 24px; pointer-events: none; z-index: 5; animation: fall linear forwards; }
     @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
@@ -60,7 +55,7 @@
 
 <div class="container" id="start">
     <h2>أرنوبتي... قربنا سنة 💌</h2>
-    <div id="counter">جاري الحساب... ⏳</div>
+    <div id="counter">جاري الحساب...</div>
     <button onclick="go('q1')">ابدأ</button>
 </div>
 
@@ -80,39 +75,40 @@
 
 <div class="container hidden" id="final">
     <h2>قربنا سنة يا أرنوبتي 🎉💖</h2>
-    <p>يا أرنوبتي...<br>صار لنا مع بعض:</p>
-    <div id="finalCounter" style="color: #ff4d88; font-weight: bold; margin-bottom: 15px; font-size: 18px;"></div>
+    <p>صار لنا مع بعض:</p>
+    <div id="finalCounter"></div>
     <button id="secretBtn" onclick="showSecret()">اضغطي هنا 😳</button>
-    <p id="secret" class="hidden">أحبك… وبقوة 🤍</p>
+    <div id="secret" class="hidden" style="font-size: 26px; color: #ff4d88; font-weight: bold; margin-top: 15px;">أحبك… وبقوة 🤍</div>
 </div>
 
 <script>
-// --- تم تعديل التاريخ ليكون 27 أبريل 2025 ---
-const startDate = new Date(2025, 3, 27); 
+// التاريخ الصحيح: 27 أبريل 2025
+const startTime = new Date("April 27, 2025 00:00:00").getTime();
 
-function updateCounter() {
-    const now = new Date();
-    const diff = now - startDate;
-    
+function updateTimer() {
+    const now = new Date().getTime();
+    const diff = now - startTime;
+
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    const text = `صِرنا مع بعض: <br>${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية`;
+    const timeString = `${days} يوم و ${hours} ساعة<br>${minutes} دقيقة و ${seconds} ثانية`;
     
-    document.getElementById("counter").innerHTML = text;
-    if(document.getElementById("finalCounter")) {
-        document.getElementById("finalCounter").innerHTML = text;
+    document.getElementById("counter").innerHTML = timeString;
+    if (document.getElementById("finalCounter")) {
+        document.getElementById("finalCounter").innerHTML = timeString;
     }
 }
 
-// تحديث العداد كل ثانية
-setInterval(updateCounter, 1000);
-updateCounter();
+// تحديث فوري ومستمر
+setInterval(updateTimer, 1000);
+updateTimer();
 
 function go(id){
-    document.querySelectorAll(".container").forEach(c => c.classList.add("hidden"));
+    const containers = document.querySelectorAll(".container");
+    containers.forEach(c => c.classList.add("hidden"));
     document.getElementById(id).classList.remove("hidden");
 }
 
@@ -129,14 +125,19 @@ function move(e){
 function showSecret(){
     document.getElementById("secretBtn").classList.add("hidden");
     document.getElementById("secret").classList.remove("hidden");
-    // تشغيل القلوب والورود
     setInterval(createHeart, 300);
 }
 
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart-fall");
-    // تنويع الأشكال (قلوب، زهور، وأرانب)
-    heart.innerHTML = ["❤️", "💖", "🌸", "🐰", "✨"][Math.floor(Math.random() * 5)];
+    const icons = ["❤️", "💖", "🌸", "🐰", "✨"];
+    heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = Math.random() *
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 5000);
+}
+</script>
+</body>
+</html>
