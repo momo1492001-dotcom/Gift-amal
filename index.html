@@ -1,34 +1,69 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>لأرنوبتي 💖</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #111;
-    color: white;
-    text-align: center;
-}
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background: #fff0f5; /* لون وردي خفيف مريح للعين */
+        color: #333;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden; /* يمنع ظهور السكرول بار وقت هروب الزر */
+    }
 
-.container {
-    padding: 30px 15px;
-}
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        width: 85%;
+        max-width: 400px;
+        position: relative; /* مهم جداً عشان الزر يهرب داخل الصندوق أو الشاشة صح */
+    }
 
-button {
-    background: #ff4d88;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    color: white;
-    font-size: 16px;
-    margin: 10px;
-}
+    h2 { color: #d63384; font-size: 22px; }
 
-.hidden { display: none; }
+    button {
+        background: #ff4d88;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        color: white;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #noBtn {
+        background: #888;
+        position: relative; /* يبدأ كزر عادي */
+        z-index: 100;
+    }
+
+    .hidden { display: none; }
+    
+    #secret {
+        margin-top: 15px;
+        font-weight: bold;
+        color: #ff4d88;
+        font-size: 20px;
+        animation: heartBeat 1s infinite;
+    }
+
+    @keyframes heartBeat {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
 </style>
 </head>
 
@@ -36,13 +71,15 @@ button {
 
 <div class="container" id="start">
     <h2>أرنوبتي... قربنا سنة 💌</h2>
-    <button onclick="startPage()">ابدأ</button>
+    <button onclick="go('q1')">ابدأ</button>
 </div>
 
 <div class="container hidden" id="q1">
     <h2>لسه تحبيني؟ 😏</h2>
-    <button onclick="go('q2')">أكيد</button>
-    <button id="noBtn">لا</button>
+    <div style="display: flex; justify-content: center; gap: 10px;">
+        <button onclick="go('q2')">أكيد</button>
+        <button id="noBtn">لا</button>
+    </div>
 </div>
 
 <div class="container hidden" id="q2">
@@ -53,51 +90,42 @@ button {
 
 <div class="container hidden" id="final">
     <h2>قربنا سنة يا أرنوبتي 🎉💖</h2>
-
     <p>
     يا أرنوبتي...<br><br>
     قربنا نكمل سنة مع بعض 🤍<br>
     وكل يوم معك كان له معنى مختلف 💖
     </p>
-
     <button onclick="showSecret()">اضغطي هنا 😳</button>
-
-    <p id="secret" class="hidden">
-    أحبك… وبقوة 🤍
-    </p>
+    <p id="secret" class="hidden">أحبك… وبقوة 🤍</p>
 </div>
 
 <script>
-
-// زر البداية
-function startPage(){
-    document.getElementById("start").classList.add("hidden");
-    document.getElementById("q1").classList.remove("hidden");
-}
-
-// التنقل
+// دالة التنقل العامة (تغني عن startPage)
 function go(id){
     document.querySelectorAll(".container").forEach(c => c.classList.add("hidden"));
     document.getElementById(id).classList.remove("hidden");
 }
 
 // زر لا يهرب
-let noBtn = document.getElementById("noBtn");
+const noBtn = document.getElementById("noBtn");
 
-noBtn.addEventListener("touchstart", move);
+// تحسين الهروب ليعمل على الجوال والكمبيوتر
+noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); move(); });
 noBtn.addEventListener("mouseover", move);
 
 function move(){
-    noBtn.style.position = "absolute";
-    noBtn.style.left = Math.random()*80 + "%";
-    noBtn.style.top = Math.random()*80 + "%";
+    // حساب أبعاد الشاشة عشان ما يهرب الزر لمكان ما ينشاف
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    
+    noBtn.style.position = "fixed"; // fixed أفضل لضمان الهروب في كل الشاشة
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 }
 
-// زر سري
 function showSecret(){
     document.getElementById("secret").classList.remove("hidden");
 }
-
 </script>
 
 </body>
