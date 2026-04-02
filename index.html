@@ -1,66 +1,175 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رسالة سرية لأمولي 💖</title>
-    <style>
-        body { background-color: #fff0f3; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: 'Arial', sans-serif; overflow: hidden; }
-        .envelope-wrapper { cursor: pointer; transition: 0.3s; position: relative; }
-        .envelope { position: relative; width: 300px; height: 200px; background-color: #ff4d94; border-radius: 0 0 15px 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); z-index: 2; }
-        .envelope::before { content: ""; position: absolute; top: -100px; left: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-bottom: 100px solid #ff4d94; transition: 0.5s; z-index: 4; transform-origin: bottom; }
-        .letter { position: absolute; bottom: 10px; left: 15px; width: 270px; height: 180px; background: white; border-radius: 10px; transition: 0.7s; z-index: 3; padding: 20px; box-sizing: border-box; text-align: center; border: 1px solid #ffb6c1; }
-        .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
-        .envelope-wrapper.open .letter { transform: translateY(-130px); height: 280px; z-index: 5; box-shadow: 0 -10px 20px rgba(0,0,0,0.1); }
-        h2 { color: #d63384; font-size: 18px; margin: 5px 0; }
-        p { color: #444; font-size: 15px; line-height: 1.6; font-weight: bold; }
-        img { width: 100px; margin-bottom: 10px; border-radius: 10px; }
-        .hint { margin-top: 50px; color: #ff4d94; font-weight: bold; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لأرنوبتي 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: radial-gradient(circle at top, #1f1f1f, #0f0f0f);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.container {
+    padding: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+img {
+    width: 220px;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: 0 0 20px rgba(255,100,150,0.4);
+}
+
+button {
+    background: linear-gradient(45deg,#ff4d88,#ff80aa);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.heart {
+    position: fixed;
+    bottom: 0;
+    font-size: 18px;
+    animation: float 4s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity:1; }
+    100% { transform: translateY(-600px); opacity:0; }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="envelope-wrapper" id="wrapper" onclick="openMe()">
-        <div class="envelope">
-            <div class="letter">
-                <img src="https://media.tenor.com/v8pZ2-OAn78AAAAi/hello-kitty-love.gif">
-                <h2>أغلى امولي في الدنيا ❤️</h2>
-                <p>فتحي عيونك واقرئي زين.. وجودك في حياتي هو أكبر نعمة، وأحبك اليوم وبكرة وللأبد! 🌸✨</p>
-                <div style="font-size: 12px; color: #ff4d94;">- من قلب حبيبك</div>
-            </div>
-        </div>
-    </div>
+<!-- موسيقى -->
+<audio autoplay loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
 
-    <div class="hint" id="hintText">اضغطي على الظرف يا روحي 👆</div>
+<div class="container" id="start">
+    <h1>أرنوبتي... قربنا سنة 💌</h1>
+    <button onclick="go('q1')">ابدأ</button>
+</div>
 
-    <script>
-        function openMe() {
-            document.getElementById('wrapper').classList.toggle('open');
-            document.getElementById('hintText').style.opacity = '0';
-            if(document.getElementById('wrapper').classList.contains('open')) {
-                makeHearts();
-            }
-        }
+<div class="container hidden" id="q1">
+    <h1>لسه تحبيني؟ 😏</h1>
+    <button onclick="go('q2')">أكيد</button>
+    <button id="noBtn">لا</button>
+</div>
 
-        function makeHearts() {
-            for (let i = 0; i < 35; i++) {
-                const heart = document.createElement('div');
-                heart.innerHTML = ["❤️", "💖", "🌸", "✨"][Math.floor(Math.random() * 4)];
-                heart.style.position = "fixed";
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.top = "100vh";
-                heart.style.fontSize = Math.random() * 20 + 20 + "px";
-                heart.style.animation = `floatUp ${Math.random() * 2 + 3}s linear forwards`;
-                document.body.appendChild(heart);
-            }
-        }
-    </script>
+<div class="container hidden" id="q2">
+    <h1>ولسه تشتاقي لي؟ 🥺</h1>
+    <button onclick="go('final')">دايم</button>
+    <button onclick="go('final')">مره</button>
+</div>
 
-    <style>
-        @keyframes floatUp {
-            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
+<div class="container hidden" id="final">
+    <h1>قربنا سنة يا أرنوبتي 🎉💖</h1>
+
+    <!-- حط صورتكم هنا -->
+    <img src="https://ibb.co/rftghC90">
+
+    <!-- عداد -->
+    <h3 id="time"></h3>
+
+    <p>
+    يا أرنوبتي...
+
+    قربنا نكمل سنة مع بعض 🤍  
+    ومن يوم 27/4/2025 وإنتي ثابتة في حياتي بشكل ما أتخيلته.
+
+    مو مجرد أيام عدت،  
+    كل يوم معك كان له معنى مختلف.
+
+    ضحكنا، قربنا، مرّينا بلحظات كثير…  
+    وكلها خلتني أتأكد أكثر إنك الشخص اللي أبيه.
+
+    أنا مو بس أحبك،  
+    أنا مرتاح لك، ومتمسك فيك، وأبي أكمل معك اللي جاي كله.
+
+    وقرب السنة ذي؟  
+    صدق… أفضل شيء صار لي 💖
+    </p>
+
+    <button onclick="showSecret()">اضغطي هنا 😳</button>
+
+    <p id="secret" class="hidden">
+    أنا ما أشوفها مجرد سنة…  
+    أنا أشوفها بداية لشيء أطول، وأقوى، وأحلى معك.
+
+    وأبي كل سنة الجاية تكون معي… نفس الآن، أو أكثر 💗
+    </p>
+
+</div>
+
+<script>
+function go(id){
+    document.querySelectorAll('.container').forEach(x=>x.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    if(id === 'final'){
+        hearts();
+        startTimer();
+    }
+}
+
+// زر لا يهرب
+let noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", move);
+noBtn.addEventListener("touchstart", move);
+
+function move(){
+    noBtn.style.position="absolute";
+    noBtn.style.left=Math.random()*80+"%";
+    noBtn.style.top=Math.random()*80+"%";
+}
+
+// القلوب
+function hearts(){
+    setInterval(()=>{
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="💗";
+        h.style.left=Math.random()*100+"vw";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),4000);
+    },200);
+}
+
+// عداد الأيام
+function startTimer(){
+    let startDate = new Date("2025-04-27");
+    setInterval(()=>{
+        let now = new Date();
+        let diff = now - startDate;
+
+        let days = Math.floor(diff / (1000*60*60*24));
+        document.getElementById("time").innerHTML =
+        "صار لنا مع بعض: " + days + " يوم 💖";
+    },1000);
+}
+
+// الزر السري
+function showSecret(){
+    document.getElementById("secret").classList.remove("hidden");
+}
+</script>
+
 </body>
 </html>
