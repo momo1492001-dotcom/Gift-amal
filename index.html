@@ -36,6 +36,7 @@ button {
 
 .hidden { display: none; }
 
+/* قلوب */
 .heart {
     position: fixed;
     bottom: 0;
@@ -52,13 +53,14 @@ button {
 
 <body>
 
-<audio autoplay loop>
+<!-- موسيقى (تشتغل بعد أول ضغط) -->
+<audio id="music" loop>
 <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
 </audio>
 
 <div class="container" id="start">
     <h2>أرنوبتي... قربنا سنة 💌</h2>
-    <button onclick="go('q1')">ابدأ</button>
+    <button onclick="start()">ابدأ</button>
 </div>
 
 <div class="container hidden" id="q1">
@@ -76,6 +78,7 @@ button {
 <div class="container hidden" id="final">
     <h2>قربنا سنة يا أرنوبتي 🎉💖</h2>
 
+    <!-- حط صورتكم هنا -->
     <img src="https://ibb.co/rftghC90">
 
     <h3 id="time"></h3>
@@ -93,8 +96,7 @@ button {
 
     أنا مو بس أحبك، أنا مرتاح لك، ومتمسك فيك.<br><br>
 
-    وقرب السنة ذي؟<br>
-    أفضل شيء صار لي 💖
+    وقرب السنة ذي؟ أفضل شيء صار لي 💖
     </p>
 
     <button onclick="showSecret()">اضغطي هنا 😳</button>
@@ -106,55 +108,33 @@ button {
 </div>
 
 <script>
+// بدء + تشغيل الموسيقى
+function start(){
+    document.getElementById('start').classList.add('hidden');
+    document.getElementById('q1').classList.remove('hidden');
+    document.getElementById('music').play();
+}
+
+// تنقل بين الصفحات
 function go(id){
     document.querySelectorAll('.container').forEach(x=>x.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
+
     if(id === 'final'){
         hearts();
         startTimer();
     }
 }
 
-// زر لا يهرب
+// زر "لا" يهرب
 let noBtn = document.getElementById("noBtn");
+
 noBtn.addEventListener("touchstart", move);
 noBtn.addEventListener("mouseover", move);
 
 function move(){
-    noBtn.style.position="absolute";
-    noBtn.style.left=Math.random()*80+"%";
-    noBtn.style.top=Math.random()*80+"%";
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random()*80 + "%";
+    noBtn.style.top = Math.random()*80 + "%";
 }
-
-// قلوب
-function hearts(){
-    setInterval(()=>{
-        let h=document.createElement("div");
-        h.className="heart";
-        h.innerHTML="💗";
-        h.style.left=Math.random()*100+"vw";
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),4000);
-    },200);
-}
-
-// عداد
-function startTimer(){
-    let startDate = new Date("2025-04-27");
-    setInterval(()=>{
-        let now = new Date();
-        let diff = now - startDate;
-        let days = Math.floor(diff / (1000*60*60*24));
-        document.getElementById("time").innerHTML =
-        "صار لنا: " + days + " يوم 💖";
-    },1000);
-}
-
-// سر
-function showSecret(){
-    document.getElementById("secret").classList.remove("hidden");
-}
-</script>
-
-</body>
-</html>
+//
