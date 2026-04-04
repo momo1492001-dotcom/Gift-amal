@@ -38,7 +38,7 @@
 
     <div id="lock-screen">
         <h2 style="color: var(--gold); font-weight: 100;">أدخلي رمز الخزنة</h2>
-        <p style="font-size: 12px; opacity: 0.6;">(تاريخ يوم لقائنا المميز)</p>
+        <p style="font-size: 12px; opacity: 0.6;">(يوم لقائنا المميز)</p>
         <div class="dots" id="dots">
             <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
         </div>
@@ -60,73 +60,4 @@
             شكراً لأنكِ كنتِ بجانبي طوال هذه الـ 365 يوماً.
         </div>
         <div class="divider"></div>
-        <div id="secret-word" style="font-size: 24px; color: var(--gold); font-weight: bold;">أحبكِ.. وبقوة 🤍</div>
-        <div class="footer-note">SINCE 2025</div>
-    </div>
-
-    <script>
-        let input = "";
-        const code = "2704"; // الرمز: يوم 27 شهر 04
-
-        function press(num) {
-            if (input.length < 4) {
-                input += num;
-                updateDots();
-                if (input.length === 4) {
-                    if (input === code) {
-                        unlock();
-                    } else {
-                        setTimeout(reset, 500);
-                    }
-                }
-            }
-        }
-
-        function updateDots() {
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, i) => {
-                if (i < input.length) dot.classList.add('active');
-                else dot.classList.remove('active');
-            });
-        }
-
-        function reset() {
-            input = "";
-            updateDots();
-            // اهتزاز بسيط عند الخطأ
-            document.getElementById('lock-screen').style.transform = "translateX(10px)";
-            setTimeout(() => document.getElementById('lock-screen').style.transform = "translateX(-10px)", 50);
-            setTimeout(() => document.getElementById('lock-screen').style.transform = "translateX(0)", 100);
-        }
-
-        function unlock() {
-            document.body.classList.add('safe-open');
-            setInterval(createGoldHeart, 300);
-        }
-
-        // عداد الوقت الفخم
-        const startDate = new Date("April 27, 2025 00:00:00").getTime();
-        function updateTimer() {
-            const now = new Date().getTime();
-            const diff = now - startDate;
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            document.getElementById("counter").innerHTML = `مضى على وجودكِ في عالمي:<br>${d} يوم، ${h} ساعة، ${m} دقيقة، ${s} ثانية`;
-        }
-        setInterval(updateTimer, 1000);
-
-        function createGoldHeart() {
-            const h = document.createElement("div");
-            h.className = "gold-heart";
-            h.innerHTML = ["✨", "👑", "🤍", "⭐"][Math.floor(Math.random()*4)];
-            h.style.left = Math.random() * 100 + "vw";
-            h.style.top = "100vh";
-            h.style.fontSize = Math.random() * 20 + 20 + "px";
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 4000);
-        }
-    </script>
-</body>
-</html>
+        <div id="secret
